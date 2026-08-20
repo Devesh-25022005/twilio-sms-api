@@ -1,11 +1,19 @@
 const express = require("express");
 const twilio = require("twilio");
+const path = require("path");
 require("dotenv").config();
 
 const app = express();
 
 app.use(express.json());
 
+// Serve Salesforce Marketing Cloud Custom Activity files
+app.use(
+    "/custom-activity",
+    express.static(path.join(__dirname, "custom-activity"))
+);
+
+// Twilio credentials
 const client = twilio(
     process.env.TWILIO_ACCOUNT_SID,
     process.env.TWILIO_AUTH_TOKEN
