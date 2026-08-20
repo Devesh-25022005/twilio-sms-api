@@ -1,0 +1,54 @@
+{
+    "key": "twilio-sms-activity",
+    "name": "Twilio SMS",
+    "description": "Send SMS messages using Twilio",
+    "version": "1.0",
+    "type": "REST",
+    "workflowApiVersion": "1.1",
+
+    "metaData": {
+        "icon": "icon.png",
+        "iconSmall": "icon.png",
+        "isConfigured": false
+    },
+
+    "configurationArguments": {
+        "applicationExtensionKey": "twilio-sms-activity",
+
+        "defaults": {
+            "activity": {
+                "arguments": {
+                    "execute": {
+                        "inArguments": [],
+                        "outArguments": [],
+                        "url": "https://twilio-sms-api-lhz4.onrender.com/execute",
+                        "verb": "POST",
+                        "body": "",
+                        "header": "",
+                        "format": "json",
+                        "useJwt": false,
+                        "timeout": 10000
+                    }
+                },
+
+                "metaData": {
+                    "isConfigured": false
+                }
+            }
+        }
+    },
+
+    "arguments": {
+        "execute": {
+            "inArguments": [],
+            "outArguments": [],
+            "url": "https://twilio-sms-api-lhz4.onrender.com/execute",
+            "verb": "POST",
+            "body": "",
+            "header": "",
+            "format": "json",
+            "useJwt": false,
+            "timeout": 10000
+        }
+    }
+}
