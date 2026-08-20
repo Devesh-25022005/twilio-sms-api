@@ -71,7 +71,7 @@ connection.on("clickedNext", function () {
         },
 
         {
-            "phone": "{{Contact.Default.MobilePhone}}"
+           "phone": "{{Contact.Attribute.Devesh_DE.Phone}}"
         }
 
     ];
