@@ -7,20 +7,13 @@ const app = express();
 
 app.use(express.json());
 
-// Serve Custom Activity files
-app.use("/custom-activity", express.static(path.join(__dirname, "custom-activity")));
+// Serve Salesforce Marketing Cloud Custom Activity files
+app.use(
+    "/custom-activity",
+    express.static(path.join(__dirname, "custom-activity"))
+);
 
-// Explicitly serve config.json
-app.get("/custom-activity/config.json", (req, res) => {
-    res.sendFile(path.join(__dirname, "custom-activity", "config.json"));
-});
-
-// Explicitly serve index.html
-app.get("/custom-activity/index.html", (req, res) => {
-    res.sendFile(path.join(__dirname, "custom-activity", "index.html"));
-});
-
-// Twilio client
+// Twilio credentials
 const client = twilio(
     process.env.TWILIO_ACCOUNT_SID,
     process.env.TWILIO_AUTH_TOKEN
@@ -34,7 +27,7 @@ app.get("/", (req, res) => {
     });
 });
 
-// Direct SMS API
+// Direct API test endpoint
 app.post("/send-sms", async (req, res) => {
     try {
         const { to, message } = req.body;
@@ -69,7 +62,7 @@ app.post("/send-sms", async (req, res) => {
     }
 });
 
-// SFMC Custom Activity execution
+// Salesforce Marketing Cloud Custom Activity
 app.post("/execute", async (req, res) => {
     try {
         console.log("=================================");
