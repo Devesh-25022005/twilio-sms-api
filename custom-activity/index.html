@@ -18,8 +18,7 @@
             display: block;
             margin-top: 15px;
         }
-        input[type="text"],
-        select {
+        input[type="text"] {
             width: 400px;
             padding: 6px;
             margin-top: 6px;
@@ -44,11 +43,13 @@
     />
     <div class="hint">On Twilio trial accounts, this must match a pre-defined template name, not free text.</div>
 
-    <label for="phoneField">Phone Field (from entry source)</label>
-    <select id="phoneField">
-        <option value="">-- Select phone field --</option>
-    </select>
-    <div class="hint">Populated automatically from your journey's entry Data Extension.</div>
+    <label for="phone">Phone Number (E.164 format)</label>
+    <input
+        type="text"
+        id="phone"
+        placeholder="+91XXXXXXXXXX"
+    />
+    <div class="hint">Must be one of your Twilio-verified numbers while on a trial account.</div>
 
     <script src="customActivity.js"></script>
 

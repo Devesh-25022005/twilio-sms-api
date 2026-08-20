@@ -9,27 +9,8 @@ var activity = {
     }
 };
 
-var availableFields = [];
-
 $(window).ready(function () {
     connection.trigger("ready");
-    connection.trigger("requestSchema"); // ask JB for entry-source fields
-});
-
-// JB responds with the real, resolvable fields from the entry Data Extension
-connection.on("requestedSchema", function (data) {
-    availableFields = (data && data.schema) || [];
-
-    var $select = $("#phoneField");
-    $select.empty();
-    $select.append('<option value="">-- Select phone field --</option>');
-
-    availableFields.forEach(function (field) {
-        // field.key is the exact resolvable reference JB gave us
-        $select.append(
-            '<option value="' + field.key + '">' + field.name + "</option>"
-        );
-    });
 });
 
 connection.on("initActivity", function (data) {
@@ -41,10 +22,10 @@ connection.on("initActivity", function (data) {
             activity.arguments.execute.inArguments) || [];
 
     var messageArgument = inArguments.find(a => a.message !== undefined);
-    var phoneArgument = inArguments.find(a => a.phoneKey !== undefined);
+    var phoneArgument = inArguments.find(a => a.phone !== undefined);
 
     if (messageArgument) $("#message").val(messageArgument.message);
-    if (phoneArgument) $("#phoneField").val(phoneArgument.phoneKey);
+    if (phoneArgument) $("#phone").val(phoneArgument.phone);
 
     connection.trigger("updateButton", {
         button: "next",
@@ -56,14 +37,14 @@ connection.on("initActivity", function (data) {
 
 connection.on("clickedNext", function () {
     var message = $("#message").val().trim();
-    var phoneKey = $("#phoneField").val();
+    var phone = $("#phone").val().trim();
 
     if (!message) {
         alert("Please enter an SMS message.");
         return;
     }
-    if (!phoneKey) {
-        alert("Please select the phone field from the dropdown.");
+    if (!phone) {
+        alert("Please enter a phone number.");
         return;
     }
 
@@ -71,8 +52,7 @@ connection.on("clickedNext", function () {
 
     activity.arguments.execute.inArguments = [
         { "message": message },
-        { "phone": "{{Event." + phoneKey + "}}" },
-        { "phoneKey": phoneKey } // stored so we can restore the dropdown later
+        { "phone": phone }
     ];
 
     connection.trigger("updateActivity", activity);
